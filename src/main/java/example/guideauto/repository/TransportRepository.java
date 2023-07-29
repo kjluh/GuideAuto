@@ -1,19 +1,22 @@
 package example.guideauto.repository;
 
 import example.guideauto.entity.Transport;
+import example.guideauto.entity.enums.Category;
+import example.guideauto.entity.enums.Types;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.ArrayList;
+import java.util.List;
+
 
 public interface TransportRepository extends JpaRepository<Transport,Long> {
-    Transport findTransportByGOSNumberIgnoreCase(String gosNumber);
+    Transport findTransportByGosNumberIgnoreCase(String gosNumber);
 
-    ArrayList<Transport> findTransportByModelIgnoreCaseAndAndCategory(String model, String category);
+    List<Transport> findTransportByModelIgnoreCaseAndAndCategory(String model, Category category);
 
-    ArrayList<Transport> findTransportByMarkIgnoreCase(String mark);
-    ArrayList<Transport> findTransportByModelIgnoreCase(String model);
-    ArrayList<Transport> findTransportByCategoryIgnoreCase(String category);
-    ArrayList<Transport> findTransportByTypesIgnoreCase(String types);
-    ArrayList<Transport> findTransportByYearRelease(int year);
-    ArrayList<Transport> findTransportByAvailabilityTrailer(boolean availabilityTrailer);
+    List<Transport> findTransportByMarkIgnoreCase(String mark);
+    List<Transport> findTransportByModelIgnoreCase(String model);
+    List<Transport> findTransportByCategory(Category category);
+    List<Transport> findTransportByTypes(Types types);
+    List<Transport> findTransportByYearRelease(int year);
+    List<Transport> findTransportByAvailabilityTrailer(boolean availabilityTrailer);
 }
