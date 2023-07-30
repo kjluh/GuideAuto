@@ -33,8 +33,10 @@ public class TransportServiceIMPL implements TransportService {
     public List<Transport> findAll() {
         return repository.findAll();
     }
+
     /**
      * Метод получения всего транспорта из базы
+     *
      * @return коллекцию объектов транспорт
      */
     public Boolean saveInBase(Transport transport) {
@@ -51,6 +53,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод обновления транспорта
+     *
      * @param transportNew получает объект, транспорт для обновления
      * @return обновленный объект
      */
@@ -60,6 +63,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param gosNumber параметр для поиска
      * @return найденный объект
      */
@@ -69,16 +73,25 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд по 2 параметрам
-     * @param model тип модели для поиска
+     *
+     * @param model    тип модели для поиска
      * @param category тип категории транспорта для поиска
      * @return коллекцию найденных объектов транспорт
      */
     public List<Transport> findTransportModelAndCategory(String model, Category category) {
+        if (null == model && category!=null) {
+            return repository.findTransportByCategory(category);
+        } else if (null == category && model!=null) {
+            return repository.findTransportByModelIgnoreCase(model);
+        } else if (null == model && null == category){
+            return repository.findAll();
+        }
         return repository.findTransportByModelIgnoreCaseAndAndCategory(model, category);
     }
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param mark тип марки для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -86,11 +99,12 @@ public class TransportServiceIMPL implements TransportService {
         if (null != mark) {
             return repository.findTransportByMarkIgnoreCase(mark);
         }
-        return repository.findAll().stream().sorted((a,d)->a.getMark().compareTo(d.getMark())).collect(Collectors.toList());
+        return repository.findAll().stream().sorted((a, d) -> a.getMark().compareTo(d.getMark())).collect(Collectors.toList());
     }
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param model тип модели для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -100,6 +114,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param category тип категории транспорта для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -109,6 +124,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param type тип транспорта для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -118,6 +134,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param year год выпуска транспорта для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -127,6 +144,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для поиска объекта в бд
+     *
      * @param availabilityTrailer наличие / отсутствие прицепа для поиска
      * @return коллекцию найденных объектов транспорт
      */
@@ -136,6 +154,7 @@ public class TransportServiceIMPL implements TransportService {
 
     /**
      * Метод для удаления объекта из бд
+     *
      * @param id ИД для удаления по нему из бд
      * @return положительный / отрицательный результат удаления
      */
